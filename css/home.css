@@ -1,0 +1,42 @@
+body,.home{height: 100%}
+.home {
+  /*padding: 10px;*/
+  flex-direction: column;
+  justify-content: space-around;
+  display: flex;
+  padding: 0 10px;
+}
+
+.first-content,.second-content, .third-content {
+  display: flex;
+  justify-content: space-between;
+}
+.first-content {height: 15%}
+.second-content { height: 50%; }
+.third-content { height: 25%; }
+
+.first-content-box {
+  border: 1px solid #000;
+  width: 20%;
+  padding: 2% 1%;
+}
+.first-content-box>span {
+  display: block;
+}
+
+.second-content-left {
+  border: 1px solid #000;
+  width: 60%;
+}
+#echarts-line, #echarts-bar {
+  height:300px;
+}
+.second-content-right {
+  border: 1px solid #000;
+  width: 35%;
+}
+
+.third-content-box {
+  border: 1px solid #000;
+  width: 20%;
+}
