@@ -9,22 +9,24 @@
     align-items: center;
     justify-content: center;
 }
+.logo{
+    text-align: center;
+}
 .login-content{
-    width: 445px;
+    width: 640px;
 }
 .login-box{
-    height: 375px;
-    background: rgba(255,255,255,.5);
-    margin-top: 20px;
-    border-radius:2px;
-    box-shadow: 0 0 6px rgba(0,0,0,.1) ;
-    padding: 35px;
+    height: 320px;
+    padding:20px 30px;
     box-sizing: border-box;
+    width: 384px;
+    float: left;
+    position: relative;
 }
 .login-box .login-input input{
     width: 100%;
-    height: 40px;
-    padding: 8px 40px;
+    height: 36px;
+    padding: 8px 20px 8px 50px;
     box-sizing: border-box;
     border-radius: 3px;
     line-height: 40px;
@@ -34,10 +36,21 @@
 .login-box .login-input{
     position: relative;
 }
+.login-box .admin{
+    margin-top: 15px;
+}
 .login-box .login-input .admin-icon{
     position: absolute;
-    top: 10px;
-    left: 20px;
+    top: 0;
+    left: 0;
+    text-align: center;
+    display: inline-block;
+    height: 36px;
+    width:40px;
+    border-right: 1px solid #c2dcf2;
+}
+.login-box .login-input .admin-icon img{
+    margin-top: 10px;
 }
 .login-box .circle{
     display: inline-block;
@@ -54,22 +67,22 @@
     color: #f08042;
     display: inline-block;
     position: absolute;
-    left: 0;
-    top: 45px;
+    left:30px;
+    bottom: 102px;
 }
 .login-box .password{
-    margin-top: 30px;
+    margin-top: 12px;
 }
 .login-box .code{
-    margin-top: 30px;
+    margin-top: 12px;
 }
 .login-box .code .code-left{
-    width: 240px;
+    width: 229px;
     float: left;
 }
 .login-box .code .num{
-    width: 120px;
-    height: 40px;
+    width: 80px;
+    height: 36px;
     border-radius: 3px;
     background: #fff;
     font-size: 24px;
@@ -104,16 +117,17 @@
     float: right;
     font-size: 16px;
     color: #26a7e1;
+    margin-top: 2px;
 }
 .login-box .button{
-    margin-top: 25px;
+    margin-top:15px;
 }
 .login-box .button .log{
     float: left;
-    width: 175px;
-    height:40px;
+    width: 150px;
+    height:35px;
     text-align: center;
-    line-height: 40px;
+    line-height: 35px;
     font-size: 16px;
     color: #fff;
     letter-spacing: 5px;
@@ -123,16 +137,16 @@
 }
 .login-box .button .reset{
     float: left;
-    width: 175px;
-    height:40px;
+    width: 150px;
+    height:35px;
     text-align: center;
-    line-height: 40px;
+    line-height: 35px;
     font-size: 16px;
     color: #fff;
     letter-spacing: 5px;
     background: #66b3d8;
     border-radius: 3px;
-    margin-left: 25px;
+    margin-left: 24px;
     cursor: pointer;
 }
 .login-bq{
@@ -142,4 +156,25 @@
     bottom: 40px;
     font-size: 16px;
     color: #858585;
+}
+.login-in{
+    width: 640px;
+    background: rgba(255,255,255,.5);
+    margin-top: 20px;
+    border-radius:2px;
+    box-shadow: 0 0 6px rgba(0,0,0,.1) ;
+}
+.login-in .img{
+    width: 256px;
+}
+.login-in .img img{
+    width: 100%;
+}
+.login-box .title{
+    font-size:16px;
+    color: #999;
+}
+.login-box .title .ch{
+    font-size: 20px;
+    color: #dd531a;
 }
