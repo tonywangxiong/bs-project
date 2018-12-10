@@ -178,3 +178,148 @@
     font-size: 20px;
     color: #dd531a;
 }
+
+
+/* 首页1  */
+body,html{height:100%;}
+body{ padding:0px; margin:0;   overflow:hidden;}
+.l-link{ display:block; height:26px; line-height:26px; padding-left:10px; text-decoration:underline; color:#333;}
+.l-link2{text-decoration:underline; color:white; margin-left:2px;margin-right:2px;}
+.l-layout-top{background:#102A49; color:White;}
+.l-layout-bottom{ background:#E5EDEF; text-align:center;}
+#pageloading{position:absolute; left:0px; top:0px; width:100%; height:100%;z-index:99999;}
+.l-link{ display:block; line-height:22px; height:22px; padding-left:16px;border:1px solid white; margin:4px;}
+.l-link-over{ background:#FFEEAC; border:1px solid #DB9F00;}
+.l-winbar{ background:#2B5A76; height:30px; position:absolute; left:0px; bottom:0px; width:100%; z-index:99999;}
+.space{ color:#E7E7E7;}
+/* 顶部 */
+.l-topmenu{ margin:0; padding:0; height:80px; line-height:80px; position:relative; background: url(../images/head-bg.png) top center no-repeat }
+.l-topmenu-logo{padding-left:20px;}
+.l-topmenu-logo img{margin-top: 14px}
+.l-topmenu-welcome{  position:absolute; height:24px; line-height:24px;  right:20px; top:2px;color:#070A0C;margin-top: 5px}
+.l-topmenu-welcome a{ color:#E7E7E7; text-decoration:underline}
+.body-gray2014 #framecenter{
+    margin-top:3px;
+}
+.viewsourcelink {
+    background:#B3D9F7;  display:block; position:absolute; right:10px; top:3px; padding:6px 4px; color:#333; text-decoration:underline;
+}
+.viewsourcelink-over {
+    background:#81C0F2;
+}
+.l-topmenu-welcome label {color:white;
+}
+#skinSelect {
+    margin-right: 6px;
+}
+.footer{height:30px; line-height:30px; text-align:center;background:#1091d7;color: #fff;font-size: 14px;font-family:'Adobe 黑体 Std' }
+.l-topmenu-welcome .mission *{
+    vertical-align: middle;
+    font-size: 14px;
+    color: #fff;
+}
+.mission .num{
+    color:#fff82d;
+}
+.wait-mission{
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 2px solid #fff;
+}
+.user-name{
+    position: relative;
+    z-index: 100;
+}
+.user-name .name{
+    width: 160px;
+    height: 26px;
+    line-height: 26px;
+    padding-right: 10px;
+    text-align: center;
+    position: relative;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    background: #0378ce;
+    margin-top: 7px;
+    cursor: pointer;
+}
+.user-name .name:after{
+    content: "";
+    border-top: 6px solid #fff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    position: absolute;
+    top: 11px;
+    right: 10px;
+}
+.alter-psd{
+    position: absolute;
+    top: 34px;
+    right: 0;
+
+    display: none;
+    padding-top: 5px;
+}
+.alter-psd p{
+    width: 105px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    background: #fff;
+    border:1px solid #e2e2e2;
+}
+.alter-psd p span{
+    vertical-align: middle;
+}
+.alter-psd .psd{
+    border-bottom: 0;
+}
+.alter-psd .psd .icon{
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    background: url(../images/reviseb.png) top center no-repeat;
+}
+.alter-psd .revise .icon{
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    background: url(../images/esc1h.png) top center no-repeat;
+}
+.alter-psd p:hover{
+    background: #0378ce;
+    color: #fff;
+}
+.alter-psd .psd:hover .icon{
+    background: url(../images/revise.png) top center no-repeat;
+}
+.alter-psd .revise:hover .icon{
+    background: url(../images/esc.png) top center no-repeat;
+}
+.user-name:hover .alter-psd{
+    display: block;
+}
+.tab-home{
+    display: flex;
+    justify-content: center;
+}
+.tab-home ul{
+    width: 756px;
+    margin: 100px -30px 0;
+}
+.tab-home li{
+    text-align: center;
+    float: left;
+    padding: 0 30px;
+    margin-top: 80px;
+}
+.tab-home li p{
+    font-size: 14px;
+    color: #000;
+    margin-top: 5px;
+}
