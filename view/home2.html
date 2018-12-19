@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>主页</title>
+  <link href="../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+  <link href="../css/globle.css" rel="stylesheet" type="text/css" />
+  <link href="../css/index.css" rel="stylesheet" type="text/css" />
+  <link href="../css/swiper.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" id="mylink"/>
+  <script src="../js/lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+  <script src="../js/lib/ligerUI/js/ligerui.all.js" type="text/javascript"></script>
+  <script src="../js/until/swiper.min.js" type="text/javascript"></script>
+  <script src="../js/lib/jquery.cookie.js"></script>
+  <script src="../js/lib/json2.js"></script>
+  <style>
+    @media screen and (max-width: 1366px) {
+      body{
+        width: 1366px;
+      }
+    }
+  </style>
+  <script type="text/javascript">
+
+      var tab = null;
+      var accordion = null;
+      var tree = null;
+      var tabItems = [];
+      $(function ()
+      {
+          //布局
+          $("#layout1").ligerLayout({
+              leftWidth: 220,
+              height: '100%',
+              heightDiff: -30,
+              space: 4,
+              onHeightChanged: f_heightChanged,
+              onLeftToggle: function ()
+              {
+                  tab && tab.trigger('sysWidthChange');
+              },
+              onRightToggle: function ()
+              {
+                  tab && tab.trigger('sysWidthChange');
+              }
+          });
+          var height = $(".l-layout-center").height();
+          //Tab
+          tab = $("#framecenter").ligerTab({
+              height: height,
+              showSwitchInTab : true,
+              showSwitch: true,
+              onAfterAddTabItem: function (tabdata)
+              {
+                  tabItems.push(tabdata);
+                  saveTabStatus();
+              },
+              onAfterRemoveTabItem: function (tabid)
+              {
+                  for (var i = 0; i < tabItems.length; i++)
+                  {
+                      var o = tabItems[i];
+                      if (o.tabid == tabid)
+                      {
+                          tabItems.splice(i, 1);
+                          saveTabStatus();
+                          break;
+                      }
+                  }
+              },
+              onReload: function (tabdata)
+              {
+                  var tabid = tabdata.tabid;
+                  addFrameSkinLink(tabid);
+              }
+          });
+          //swiper
+          var mySwiper = new Swiper ('.swiper-container', {
+              loop: true, // 循环模式选项
+              // 如果需要前进后退按钮
+              navigation: {
+                  nextEl: '.icon-left',
+                  prevEl: '.icon-right',
+              },
+              slidesPerView : 4,
+              breakpoints: {
+                  //当宽度小于等于320
+                  1366: {
+                      slidesPerView: 4,
+
+                  },
+                  //当宽度小于等于480
+                  1600: {
+                      slidesPerView: 5,
+                  },
+                  //当宽度小于等于640
+                  1920: {
+                      slidesPerView: 6,
+                  },
+              }
+             // virtual: true,
+
+          })
+
+          //面板
+          $("#accordion1").ligerAccordion({
+              height: height - 24, speed: null
+          });
+
+          $(".l-link").hover(function ()
+          {
+              $(this).addClass("l-link-over");
+          }, function ()
+          {
+              $(this).removeClass("l-link-over");
+          });
+
+          function openNew(url)
+          {
+              var jform = $('#opennew_form');
+              if (jform.length == 0)
+              {
+                  jform = $('<form method="post" />').attr('id', 'opennew_form').hide().appendTo('body');
+              } else
+              {
+                  jform.empty();
+              }
+              jform.attr('action', url);
+              jform.attr('target', '_blank');
+              jform.trigger('submit');
+          };
+
+
+          tab = liger.get("framecenter");
+          accordion = liger.get("accordion1");
+          tree = liger.get("tree1");
+          $("#pageloading").hide();
+
+          css_init();
+          pages_init();
+      });
+      function f_heightChanged(options)
+      {
+          if (tab)
+              tab.addHeight(options.diff);
+          if (accordion && options.middleHeight - 24 > 0)
+              accordion.setHeight(options.middleHeight - 24);
+      }
+      function f_addTab(tabid, text, url)
+      {
+          tab.addTabItem({
+              tabid: tabid,
+              text: text,
+              url: url,
+              callback: function ()
+              {
+                  addShowCodeBtn(tabid);
+                  addFrameSkinLink(tabid);
+              }
+          });
+      }
+      function addShowCodeBtn(tabid)
+      {
+          var viewSourceBtn = $('<a class="viewsourcelink" href="javascript:void(0)">查看源码</a>');
+          var jiframe = $("#" + tabid);
+          viewSourceBtn.insertBefore(jiframe);
+          viewSourceBtn.click(function ()
+          {
+              showCodeView(jiframe.attr("src"));
+          }).hover(function ()
+          {
+              viewSourceBtn.addClass("viewsourcelink-over");
+          }, function ()
+          {
+              viewSourceBtn.removeClass("viewsourcelink-over");
+          });
+      }
+      function showCodeView(src)
+      {
+          $.ligerDialog.open({
+              title : '源码预览',
+              url: 'dotnetdemos/codeView.aspx?src=' + src,
+              width: $(window).width() *0.9,
+              height: $(window).height() * 0.9
+          });
+
+      }
+      function addFrameSkinLink(tabid)
+      {
+          var prevHref = getLinkPrevHref(tabid) || "";
+          var skin = getQueryString("skin");
+          if (!skin) return;
+          skin = skin.toLowerCase();
+          attachLinkToFrame(tabid, prevHref + skin_links[skin]);
+      }
+      var skin_links = {
+          "aqua": "lib/ligerUI/skins/Aqua/css/ligerui-all.css",
+          "gray": "lib/ligerUI/skins/Gray/css/all.css",
+          "silvery": "lib/ligerUI/skins/Silvery/css/style.css",
+          "gray2014": "lib/ligerUI/skins/gray2014/css/all.css"
+      };
+      function pages_init()
+      {
+          var tabJson = $.cookie('liger-home-tab');
+          if (tabJson)
+          {
+              var tabitems = JSON2.parse(tabJson);
+              for (var i = 0; tabitems && tabitems[i];i++)
+              {
+                  f_addTab(tabitems[i].tabid, tabitems[i].text, tabitems[i].url);
+              }
+          }
+      }
+      function saveTabStatus()
+      {
+          $.cookie('liger-home-tab', JSON2.stringify(tabItems));
+      }
+      function css_init()
+      {
+          var css = $("#mylink").get(0), skin = getQueryString("skin");
+          $("#skinSelect").val(skin);
+          $("#skinSelect").change(function ()
+          {
+              if (this.value)
+              {
+                  location.href = "index.htm?skin=" + this.value;
+              } else
+              {
+                  location.href = "index.htm";
+              }
+          });
+
+
+          if (!css || !skin) return;
+          skin = skin.toLowerCase();
+          $('body').addClass("body-" + skin);
+          $(css).attr("href", skin_links[skin]);
+      }
+      function getQueryString(name)
+      {
+          var now_url = document.location.search.slice(1), q_array = now_url.split('&');
+          for (var i = 0; i < q_array.length; i++)
+          {
+              var v_array = q_array[i].split('=');
+              if (v_array[0] == name)
+              {
+                  return v_array[1];
+              }
+          }
+          return false;
+      }
+      function attachLinkToFrame(iframeId, filename)
+      {
+          if(!window.frames[iframeId]) return;
+          var head = window.frames[iframeId].document.getElementsByTagName('head').item(0);
+          var fileref = window.frames[iframeId].document.createElement("link");
+          if (!fileref) return;
+          fileref.setAttribute("rel", "stylesheet");
+          fileref.setAttribute("type", "text/css");
+          fileref.setAttribute("href", filename);
+          head.appendChild(fileref);
+      }
+      function getLinkPrevHref(iframeId)
+      {
+          if (!window.frames[iframeId]) return;
+          var head = window.frames[iframeId].document.getElementsByTagName('head').item(0);
+          var links = $("link:first", head);
+          for (var i = 0; links[i]; i++)
+          {
+              var href = $(links[i]).attr("href");
+              if (href && href.toLowerCase().indexOf("ligerui") > 0)
+              {
+                  return href.substring(0, href.toLowerCase().indexOf("lib") );
+              }
+          }
+      }
+  </script>
+</head>
+<body style="padding:0px;background:#EAEEF5;">
+<div id="pageloading"></div>
+<!--页头-->
+<div id="topmenu" class="l-topmenu">
+  <div class="l-topmenu-logo"><img src="../images/he-logo.png" alt=""></div>
+  <div class="l-topmenu-list">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide slide1">
+          <div class="menu-item">
+            <img src="../images/basaData.png" alt="">
+            <span class="menuTitle">基础数据</span>
+          </div>
+
+        </div>
+        <div class="swiper-slide slide2">
+          <div class="menu-item">
+            <img src="../images/integrated.png" alt="">
+            <span class="menuTitle">综合业务</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide3">
+          <div class="menu-item">
+            <img src="../images/eventHandle.png" alt="">
+            <span class="menuTitle">事件处理</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide4">
+          <div class="menu-item">
+            <img src="../images/dispatch.png" alt="">
+            <span class="menuTitle">指挥调度</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide5">
+          <div class="menu-item">
+            <img src="../images/largeData.png" alt="">
+            <span class="menuTitle">大数据</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide6">
+          <div class="menu-item">
+            <img src="../images/assess.png" alt="">
+            <span class="menuTitle">绩效考核</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide7">
+          <div class="menu-item">
+            <img src="../images/analysis.png" alt="">
+            <span class="menuTitle">研判分析</span>
+          </div>
+        </div>
+        <div class="swiper-slide slide8">
+          <div class="menu-item">
+            <img src="../images/setting.png" alt="">
+            <span class="menuTitle">系统设置</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 如果需要导航按钮 -->
+    <div class="icon-left">
+      <img src="../images/toLeft.png" alt="">
+    </div>
+    <div class="icon-right">
+      <img src="../images/toRight.png" alt="">
+    </div>
+  </div>
+  <div class="l-topmenu-welcome">
+    <div class="mission">
+           <span class="wait-mission">
+               <img src="../images/wait.png" alt="">
+               <span>待办事项 : </span><span class="num">18592</span><span>条</span>
+           </span>
+      <span class="finish-mission">
+               <img src="../images/finish.png" alt="">
+               <span>已办事项 : </span><span class="num">18592</span><span>条</span>
+           </span>
+    </div>
+    <div class="user-name clearfix">
+      <p class="name fr">欢迎你！XXXXXXX</p>
+      <div class="alter-psd">
+        <p class="psd">
+          <span class="icon"></span>
+          <span>修改密码</span>
+        </p>
+        <p class="revise">
+          <span class="icon"></span>
+          <span>退出系统</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--页头-->
+<div id="layout1" style="width:99.2%; margin:0 auto; margin-top:4px; ">
+  <!--左侧菜单-->
+  <div position="left"  title="菜单" id="accordion1"></div>
+  <!--左侧菜单-->
+  <div position="center" id="framecenter">
+    <div tabid="home" title="我的主页">
+      <iframe src="pages/mainPage.html" frameborder="0"></iframe>
+    </div>
+    <div tabid="page1" title="查询页">
+      <iframe src="pages/searchPage.html" frameborder="0"></iframe>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  版权所有：中山市XXX科技有限公司
+</div>
+<div style="display:none"></div>
+</body>
+</html>

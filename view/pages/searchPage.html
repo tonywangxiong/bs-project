@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询页</title>
+    <link href="../../js/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/globle.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="iframContainer">
+    <!--查询条件区域-->
+    <section class="section1 search-condition-container">
+        <div class="search-condition-title">
+            <span>查询条件</span>
+            <span class="l-icon toBottomIcon" onclick="toggleSearchCondition(this)"></span>
+        </div>
+        <div class="search-condition-content">
+            <div class="search-item">
+                <label class="search-item-label">户编号:</label>
+                <div class="search-item-inline">
+                    <input type="text" class="l-input" placeholder="请输入户编号">
+                </div>
+            </div>
+            <div class="search-item">
+                <label class="search-item-label">户主姓名:</label>
+                <div class="search-item-inline">
+                    <input type="text" class="l-input" placeholder="请输入户主姓名">
+                </div>
+            </div>
+            <div class="search-item">
+                <label class="search-item-label">户主身份证:</label>
+                <div class="search-item-inline">
+                    <input type="text" class="l-input" placeholder="请输入户主身份证">
+                </div>
+            </div>
+            <div class="search-item searchBtnContainer">
+                <button class="l-btn l-btn-search l-btn-sm" type="button">
+                    <span class="l-icon l-search-icon"></span>
+                    <span class="l-btn-text">查询</span>
+                </button>
+                <button class="l-btn l-btn-reset l-btn-sm" type="button">
+                    <span class="l-icon l-reset-icon"></span>
+                    <span class="l-btn-text">重置</span>
+                </button>
+                <button class="l-btn l-btn-more l-btn-sm closed" type="button" onclick="moreCondition(this)">
+                    <span class="l-icon l-more-icon"></span>
+                    <span class="l-btn-text">更多</span>
+                </button>
+            </div>
+            <div class="moreConditionContainer">
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户编号">
+                    </div>
+                </div>
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户主姓名">
+                    </div>
+                </div>
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户主身份证">
+                    </div>
+                </div>
+                <br>
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户编号">
+                    </div>
+                </div>
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户主姓名">
+                    </div>
+                </div>
+                <div class="search-item">
+                    <label class="search-item-label">条件1:</label>
+                    <div class="search-item-inline">
+                        <input type="text" class="l-input" placeholder="请输入户主身份证">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--查询条件区域-->
+    <!--操作按钮区域-->
+    <section class="section2 ctr-btns-container">
+        <button class="l-btn l-btn-add l-btn-sm" type="button">
+            <span class="l-icon l-add-icon"></span>
+            <span class="l-btn-text">增加</span>
+        </button>
+        <button class="l-btn l-btn-edit l-btn-sm" type="button">
+            <span class="l-icon l-edit-icon"></span>
+            <span class="l-btn-text">修改</span>
+        </button>
+        <button class="l-btn l-btn-delete l-btn-sm" type="button">
+            <span class="l-icon l-delete-icon"></span>
+            <span class="l-btn-text">删除</span>
+        </button>
+        <button class="l-btn l-btn-export l-btn-sm" type="button">
+            <span class="l-icon l-export-icon"></span>
+            <span class="l-btn-text">导出</span>
+        </button>
+    </section>
+    <!--操作按钮区域-->
+    <!--表格区域-->
+    <section class="section3 table-container" style="padding:20px;width: 100%;height: 500px;border: 1px solid #CBDCF3;">
+        表格区域
+    </section>
+    <!--表格区域-->
+</div>
+<script src="../../js/until/jquery.min.js"></script>
+<script>
+
+    //收缩查询条件
+    function toggleSearchCondition(obj) {
+        if($(obj).hasClass('toBottomIcon')){
+            $(obj).removeClass('toBottomIcon').addClass('toRightIcon');
+            $(obj).parents('.search-condition-container').animate({
+                'height':'28px'
+            },200);
+        }else{
+            $(obj).removeClass('toRightIcon').addClass('toBottomIcon');
+            $(obj).parents('.search-condition-container').animate({
+                'height':'auto'
+            },200);
+        }
+    }
+    //展开更多条件
+    function moreCondition(obj) {
+        if($(obj).hasClass('closed')){
+            $(obj).removeClass('closed').addClass('open');
+            $('.moreConditionContainer').show();
+        }else{
+            $(obj).removeClass('open').addClass('closed');
+            $('.moreConditionContainer').hide();
+        }
+    }
+</script>
+</body>
+</html>
