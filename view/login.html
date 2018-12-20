@@ -25,16 +25,16 @@
             <div class="login-box fl">
                 <p class="title"><span class="ch">用户登录</span> <span>UserLogin</span></p>
                 <p class="admin login-input">
-                    <input type="text" placeholder="请输入用户名">
+                    <input type="text" name="username" placeholder="请输入用户名">
                     <span class="admin-icon"><img src="../images/admin.png" alt="" class=""></span>
                 </p>
                 <p class="password login-input">
-                    <input type="text" placeholder="请输入密码">
+                    <input type="password" name="psw" placeholder="请输入密码">
                     <span  class="admin-icon"><img src="../images/mm.png" alt=""></span>
                 </p>
-                <div class="code login-input clearfix">
-                    <p class="code-left">
-                        <input type="text" placeholder="验证码">
+                <div class="code clearfix">
+                    <p class="code-left login-input">
+                        <input type="text" name="pcode" placeholder="验证码">
                         <span class="admin-icon"><img src="../images/yz.png" alt=""></span>
                     </p>
                     <p class="num">18678</p>
@@ -48,7 +48,7 @@
                     <a href="javascript:;" class="forget-psd">忘记密码？</a>
                 </div>
                 <div class="button clearfix">
-                    <button class="log">登录</button>
+                    <button class="log loginBtn">登录</button>
                     <button class="reset">重置</button>
                 </div>
             </div>
@@ -58,20 +58,41 @@
 </div>
 <script>
     var indexJs = {
-        init:function () {
+        init: function () {
             this.remPsd();
+            this.vali();
         },
         /* 记住密码 */
-        remPsd:function () {
-            $(".rem-psd").on('click',function () {
-                if($(this).hasClass('active')){
+        remPsd: function () {
+            $(".rem-psd").on('click', function () {
+                if ($(this).hasClass('active')) {
                     $(this).removeClass('active')
-                }else{
+                } else {
                     $(this).addClass('active');
                 }
             });
 
+        },
+        vali: function () {
+            $('.login-input').each(function () {
+                var $this = $(this);
+                $this.find('input').on('input propertychange', function () {
+                    var list = [];
+                    $.each($('.login-box').find('input'), function (index, item) {
+                        if ($(item).val() == '') {
+                            list.push('1');
+                        }
+                    });
+                    if (list.length > 0) {
+                        $('.loginBtn').css('opacity', '0.6');
+                    } else {
+                        $('.loginBtn').css('opacity', '1');
+                    }
+                })
+            })
         }
+
+
     }
     $(function () {
         indexJs.init();

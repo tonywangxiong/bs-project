@@ -33,6 +33,9 @@
     color: #26a7e1;
     font-size: 14px;
 }
+.login-box input:focus{
+    border: 1px solid #26a7e1;
+}
 .login-box .login-input{
     position: relative;
 }
