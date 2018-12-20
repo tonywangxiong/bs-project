@@ -219,6 +219,9 @@ body{ padding:0px; margin:0;}
     height: 80px;
     cursor: pointer;
 }
+.swiper-slide .menu-item:hover{
+    background: #047ad4;
+}
 .swiper-slide img{
     float: left;
     margin-left: 32px;
